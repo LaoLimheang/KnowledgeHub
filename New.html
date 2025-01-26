@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khmer-English Translator & Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            text-shadow: 0 0 10px black,
+                         0 0 20px black,
+                         0 0 40px black,
+                         0 0 80px black,
+                         0 0 120px black,
+                         0 0 200px black,
+                         0 0 300px black,
+                         0 0 400px black;
+            background: url('ai.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+        .navbar {
+            width: 100%;
+            background: #004494;
+            padding: 15px 20px;
+            color: white;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 60px);
+            padding: 20px;
+        }
+        .option-button {
+            width: 200px;
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            background-color: #004494;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .option-button:hover {
+            background-color: #003377;
+        }
+        .hidden {
+            display: none;
+        }
+        textarea {
+            width: 80%;
+            max-width: 400px;
+            height: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        textarea:focus {
+            outline: 2px solid #004494;
+        }
+        .navbar h1 a{
+            color: white;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1><a href="index.html"><i class="fas fa-arrow-left"></i></a>Utility App</h1>
+    </div>
+
+    <div class="container">
+        <!-- Main Options -->
+        <div id="mainOptions">
+            <button class="option-button" onclick="showSection('translator')"><i class="fa-solid fa-language"></i> Go to Translator</button>
+            <button class="option-button" onclick="showSection('weather')"><i class="fas fa-cloud"></i> Go to Weather</button>
+        </div>
+
+        <!-- Translator Section -->
+        <div id="translatorSection" class="hidden">
+            <h2> Khmer-English Translator</h2>
+            <textarea id="inputText" placeholder="Enter text in Khmer or English..."></textarea>
+            <button class="option-button" onclick="translateText()">Translate</button>
+            <p id="outputText"></p>
+            <button class="option-button" onclick="backToMain()">Back</button>
+        </div>
+
+        <!-- Weather Section -->
+        <div id="weatherSection" class="hidden">
+            <h2>Weather in Your Location</h2>
+            <p id="weatherInfo">Fetching your location...</p>
+            <button class="option-button" onclick="backToMain()">Back</button>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('mainOptions').classList.add('hidden');
+            document.getElementById(sectionId + 'Section').classList.remove('hidden');
+        }
+
+        function backToMain() {
+            document.getElementById('translatorSection').classList.add('hidden');
+            document.getElementById('weatherSection').classList.add('hidden');
+            document.getElementById('mainOptions').classList.remove('hidden');
+        }
+
+        function translateText() {
+            const inputText = document.getElementById('inputText').value;
+            const outputText = document.getElementById('outputText');
+
+            if (inputText.trim() === '') {
+                outputText.textContent = 'Please enter text to translate.';
+                return;
+            }
+
+            fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(inputText) + '&langpair=' + (/[\u1780-\u17FF]/.test(inputText) ? 'km|en' : 'en|km'))
+                .then(response => response.json())
+                .then(data => {
+                    outputText.textContent = data.responseData.translatedText;
+                })
+                .catch(() => {
+                    outputText.textContent = 'Error in translation. Please try again later.';
+                });
+        }
+
+        function getWeather() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=b48f9c0a257900a5d33dfd0d1eabd8bd`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('weatherInfo').textContent = `Current Temperature: ${data.main.temp}°C, ${data.weather[0].description}`;
+                        })
+                        .catch(() => {
+                            document.getElementById('weatherInfo').textContent = 'Unable to fetch weather data. Please try again later.';
+                        });
+                }, () => {
+                    document.getElementById('weatherInfo').textContent = 'Unable to fetch your location.';
+                });
+            } else {
+                document.getElementById('weatherInfo').textContent = 'Geolocation is not supported by this browser.';
+            }
+        }
+
+        window.onload = getWeather;
+    </script>
+</body>
+</html>

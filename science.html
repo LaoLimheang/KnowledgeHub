@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science </title>
+    <link rel="stylesheet" href="for.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <header class="bg-blue-600 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold"><a href="index.html"><i class="fas fa-arrow-left"></i></a> Computer Science</h1>
+                
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#home" class="hover:underline">Home</a></li>
+                    <li><a href="#articles" class="hover:underline">Articles</a></li>
+                    <li><a href="#discover" class="hover:underline">Discover</a></li>
+                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container mx-auto my-8">
+        <!-- Hero Section -->
+        <section id="home" class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-4">Explore the Wonders of Computer Science.</h2>
+                    <p class="text-gray-700 mb-6">Software Development
+                        Software developers design, build, and maintain applications and systems. They work on everything from mobile apps to enterprise software. This career emphasizes problem-solving, programming languages, and an understanding of user needs.</p>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"><a href="History.html">Get Started</a></button>
+                </div>
+                <style>
+                    img{
+                        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+                    }
+                    img:hover{
+                        transform: scale(0.9);
+                        transition: 0.5s ease;
+                    }
+                </style>
+                <div class="md:w-1/2 mt-6 md:mt-0">
+                    <img src="ai.jpg" alt="Science Image" class="rounded-lg shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section id="articles" class="mt-12">
+            <h3 class="text-2xl font-bold mb-4">Featured Articles</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg">Coding Learning</h4>
+                    <p class="text-gray-700 mt-2">I will create a class soon. And we learn it from <span style="color: orange;">Html Css (Basic)</span>. Please support me.</p>
+                    <a href="#" class="text-blue-600 hover:underline mt-4 block">Read More</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg">Advances in bussiness</h4>
+                    <p class="text-gray-700 mt-2">We are exploring the innovation and sales of website code created by me. And I will create it if supported. It is currently in limbo.</p>
+                    <a href="#" class="text-blue-600 hover:underline mt-4 block">Read More</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg">Mobile App</h4>
+                    <p class="text-gray-700 mt-2">I will achieve it one day to become the creator of Mobile App such as Game or social Media.</p>
+                    <a href="#" class="text-blue-600 hover:underline mt-4 block">Read More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discover Section -->
+        <section id="discover" class="mt-12 bg-blue-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold mb-4">Discover More</h3>
+            <p class="text-gray-700">Our curated collection of resources and tools will help you dive deeper into the world of science.</p>
+            <ul class="mt-4 space-y-2">
+                <li><a href="#" class="text-blue-600 hover:underline">Interactive Simulations</a></li>
+                <li><a href="#" class="text-blue-600 hover:underline">Educational Videos</a></li>
+                <li><a href="#" class="text-blue-600 hover:underline">Research Papers</a></li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mt-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+            <form action="#" method="POST" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="w-full p-2 border rounded" placeholder="Your Name">
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="w-full p-2 border rounded" placeholder="Your Email">
+                </div>
+                <div>
+                    <label for="message" class="block text-gray-700">Message</label>
+                    <textarea id="message" name="message" rows="4" class="w-full p-2 border rounded" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-blue-600 text-white text-center p-4 mt-12">
+        <p>&copy; 2025 knowledge Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
