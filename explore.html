@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+    <link rel="icon" href="ban.png" type="image/x-icon">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #007bff;
+            padding: 10px;
+            color: white;
+        }
+
+        .navbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .navbar button:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .profile h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .search-bar {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background: #0056b3;
+        }
+
+        .home {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button id="profile-btn">Profile</button>
+        <button id="search-btn">Search</button>
+        <button id="home-btn">Home</button>
+    </nav>
+
+    <!-- Main Container -->
+    <div id="content">
+        <!-- Home Section -->
+        <section id="home-section" class="home">
+            <h1>Welcome to the Home Page</h1>
+            <p>Explore posts and connect with others!</p>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile-section" class="profile hidden">
+            <div id="google-login">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <div id="profile-info" class="hidden">
+                <img id="profile-pic" src="" alt="Profile Picture">
+                <h2 id="profile-name"></h2>
+                <button>Post a Picture</button>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section id="search-section" class="search-bar hidden">
+            <input type="text" placeholder="Search posts...">
+            <button>Search</button>
+        </section>
+    </div>
+
+    <script>
+        const profileBtn = document.getElementById('profile-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const homeBtn = document.getElementById('home-btn');
+
+        const homeSection = document.getElementById('home-section');
+        const profileSection = document.getElementById('profile-section');
+        const searchSection = document.getElementById('search-section');
+
+        const googleLogin = document.getElementById('google-login');
+        const profileInfo = document.getElementById('profile-info');
+        const profilePic = document.getElementById('profile-pic');
+        const profileName = document.getElementById('profile-name');
+
+        function showSection(section) {
+            homeSection.classList.add('hidden');
+            profileSection.classList.add('hidden');
+            searchSection.classList.add('hidden');
+            section.classList.remove('hidden');
+        }
+
+        profileBtn.addEventListener('click', () => {
+            showSection(profileSection);
+        });
+
+        searchBtn.addEventListener('click', () => {
+            showSection(searchSection);
+        });
+
+        homeBtn.addEventListener('click', () => {
+            showSection(homeSection);
+        });
+
+        function onSignIn(googleUser) {
+            const profile = googleUser.getBasicProfile();
+            profilePic.src = profile.getImageUrl();
+            profileName.textContent = profile.getName();
+            googleLogin.classList.add('hidden');
+            profileInfo.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
